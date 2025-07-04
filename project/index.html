@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>가평고등학교 종합 시스템</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header><h1>가평고등학교 종합 시스템</h1></header>
+
+  <nav class="tab-menu">
+    <button onclick="showTab('lost-tab')">분실물</button>
+    <button onclick="showTab('meal-tab')">급식</button>
+    <button onclick="showTab('timetable-tab')">시간표</button>
+    <button onclick="showTab('board-tab')">게시판</button>
+  </nav>
+
+  <main>
+    <!-- 분실물 -->
+    <section id="lost-tab" class="tab-content">
+      <section id="lost-and-found">
+        <h2>분실물 등록</h2>
+        <form id="lost-item-form">
+          <input id="item-name" placeholder="물품명" required />
+          <input id="item-location" placeholder="분실 장소" required />
+          <input id="item-desc" placeholder="물품 특징" required />
+          <input type="file" id="item-image" accept="image/*" required />
+          <input id="contact-info" placeholder="연락처" required />
+          <button type="submit">등록</button>
+        </form>
+        <div class="admin-login">
+          <button onclick="toggleAdmin()">🔐 관리자 로그인</button>
+          <input type="password" id="admin-pass" placeholder="비밀번호 입력" style="display:none;" />
+        </div>
+        <h2>오늘의 분실물</h2>
+        <ul id="lost-items-list"></ul>
+      </section>
+    </section>
+
+    <!-- 급식 -->
+    <section id="meal-tab" class="tab-content" style="display:none;">
+      <div class="meal-controls">
+        <button onclick="fetchMealData('today')">오늘</button>
+        <button onclick="fetchMealData('tomorrow')">내일</button>
+        <input type="date" id="meal-date" />
+        <button onclick="fetchMealBySelectedDate()">조회</button>
+      </div>
+      <pre id="meal-container"></pre>
+    </section>
+
+    <!-- 시간표 -->
+    <section id="timetable-tab" class="tab-content" style="display:none;">
+      <div class="meal-controls">
+        <select id="grade">
+          <option value="1">1학년</option>
+          <option value="2">2학년</option>
+          <option value="3" selected>3학년</option>
+        </select>
+        <select id="class">
+          <option value="1">1반</option>
+          <option value="2" selected>2반</option>
+          <option value="3">3반</option>
+        </select>
+        <button onclick="fetchTimetableBySelection()">조회</button>
+      </div>
+      <div id="timetable-container"></div>
+    </section>
+
+    <!-- 게시판 -->
+    <section id="board-tab" class="tab-content" style="display:none;">
+      <form id="post-form">
+        <input id="post-title" placeholder="제목" required />
+        <textarea id="post-content" placeholder="내용" required></textarea>
+        <button type="submit">작성</button>
+      </form>
+      <div id="post-list"></div>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
